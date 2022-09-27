@@ -1,0 +1,136 @@
+<div class="init">
+  <button class="btn" (click)="btnNewUser()"><span>New User</span></button>
+  <div class="form" *ngIf="newUser==true">
+    <form class="new-user-form" #UserForm="ngForm">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <br>
+            <input #usernameField="ngModel" type="text" pattern="^[a-zA-ZáéíóúñÑÜü ]{3,40}$" required maxlength="40" minlength="3" name ="username" [(ngModel)]="user.username" >
+            <div class="invalid" *ngIf="usernameField.invalid && usernameField.touched">
+                <div *ngIf="usernameField.errors?.['required']">
+                    Username field cannot be blank
+                </div>
+                <div *ngIf="usernameField.errors?.['maxlength']">
+                    New Username is too long
+                </div>
+                <div *ngIf="usernameField.errors?.['pattern']">
+                    Chars are not valid
+                </div>
+            </div>
+            <div class="button">
+              <button type="button" class="create-user" [disabled]="UserForm.invalid" (click)="createUser()">Save User</button>
+          </div>
+        </div>
+    </form>
+  </div>
+  <table class="table-no-margin"><thead><tr><th class="table-title">USERS</th></tr></thead></table>
+  <table class="users-table" border="2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Debt</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{ user.idUser }}</td>
+            <td>{{ user.username }}</td>
+            <td class="positive" *ngIf="user.debt>0" >{{ user.debt }} $</td>
+            <td class="negative" *ngIf="user.debt<0" >{{ user.debt }} $</td>
+            <td class="zero" *ngIf="user.debt==0" >{{ user.debt }} $</td>
+        </tr>
+    </tbody>
+  </table>
+  <table class="table-no-margin"><thead><tr><th class="table-title">SPENDS</th></tr></thead></table>
+  <table class="spends-table" border="2">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>User</th>
+            <th>Cost</th>
+            <th>Date</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let spend of spends">
+            <td>{{ spend.id }}</td>
+            <td>{{ spend.description }}</td>
+            <td>{{ spend.user.username }}</td>
+            <td>{{ spend.cost }} $</td>
+            <td>{{ spend.date | date }}</td>
+        </tr>
+    </tbody>
+  </table>
+  <table class="table-no-margin"><thead><tr><th class="table-title">Total Payments = {{totalPayments}} $</th></tr></thead></table>
+  <button class="btn" type="submit"  (click)="btnNewSpend()"><span>New Spend</span></button>
+  <div class="form" *ngIf="newSpend==true">
+    <form class="new-spend-form" #SpendForm="ngForm">
+      <div class="form-group">
+          <label for="spend">Description</label>
+          <br>
+          <input #descriptionField="ngModel" type="text" pattern="^[a-zA-ZáéíóúñÑÜü ]{2,15}$" required maxlength="15"  name ="description" [(ngModel)]="spend.description" >
+          <div class="invalid" *ngIf="descriptionField.invalid && descriptionField.touched">
+              <div *ngIf="descriptionField.errors?.['required']">
+                  Description field cannot be blank
+              </div>
+              <div *ngIf="descriptionField.errors?.['maxlength']">
+                  Description is too long
+              </div>
+              <div *ngIf="descriptionField.errors?.['pattern']">
+                  Incorrect pattern
+              </div>
+          </div>
+      </div>
+      <div class="form-group">
+        <label for="userSelect">User</label>
+        <br>
+        <select #userSelect="ngModel" name="userSelect" required name ="userSelect"
+        [(ngModel)]="spend.userId" class="form-select">
+            <option *ngFor="let thisUser of users" value={{thisUser.idUser}}>{{thisUser.username}}</option>
+        </select>
+        <div class="invalid" *ngIf="userSelect.invalid && userSelect.touched">
+            <div *ngIf="userSelect.errors?.['required']">
+                User is required
+            </div>
+        </div>
+      </div>
+
+    <div class="form-group">
+      <label for="cost">Cost (in $)</label>
+      <br>
+      <input #costField="ngModel" type="number" step="any" required pattern="[0-9]+([\.,][0-9]+)?" name ="cost" [(ngModel)]="spend.cost" >
+      <div class="invalid" *ngIf="costField.invalid && costField.touched">
+          <div *ngIf="costField.errors?.['required']">
+              Incorrect
+          </div>
+          <div *ngIf="costField.errors?.['pattern']">
+           Cost must be a positive value
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group my-2">
+      <label for="date">Date</label>
+      <br>
+      <input #dateField="ngModel" required type="date" [(ngModel)]="spend.date" name="date"
+      min="2022-08-06" max="2023-12-31">
+      <div class="invalid" *ngIf="dateField.invalid && dateField.touched">
+          <div *ngIf="dateField.errors?.['required']">
+              Date is required
+          </div>
+      </div>
+  </div>
+  </form>
+  <div class="button">
+    <button type="button" [disabled]="SpendForm.invalid" (click)="createSpend()">Save Spend</button>
+  </div>
+  </div>
+  <div >
+    <app-payments [users]="users"></app-payments>
+  </div>
+</div>
+

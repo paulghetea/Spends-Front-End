@@ -1,0 +1,23 @@
+.autentia-img{
+  width: 15%;
+  margin-top: 1%;
+  margin-left: 1%;
+}
+
+/*Responsive*/
+
+@media  (max-width:  767px){
+  .autentia-img{
+    width: 150px;
+    margin-top: 1%;
+    margin-left: 1%;
+  }
+}
+
+@media (min-width:  768px) and (max-width:  992px){
+  .autentia-img{
+    width: 150px;
+    margin-top: 1%;
+    margin-left: 1%;
+  }
+}

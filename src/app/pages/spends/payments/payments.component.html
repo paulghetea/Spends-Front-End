@@ -1,0 +1,34 @@
+<button type="button" class="btn" (click)="showPaymentsFunction()"><span>Show Payments</span></button>
+
+<div class="solveDebt" *ngIf="showPayments==true" >
+<table class="debt-table" border="2">
+  <thead>
+  </thead>
+  <tbody>
+      <tr *ngFor="let user of usersInDebt">
+          <td><b>{{ user.username }}</b> should pay to</td>
+      </tr>
+  </tbody>
+</table>
+<table class="without-debt-table" border="2">
+  <thead>
+  </thead>
+  <tbody>
+      <tr *ngFor="let user of usersWithoutDebt">
+          <td><b>{{ user.username }}</b> a total of</td>
+      </tr>
+  </tbody>
+</table>
+<table border="2" >
+  <thead>
+  </thead>
+  <tbody>
+      <tr *ngFor="let payment of payments" >
+          <td><b>{{ payment | minus | number: '.1-2' }}</b> $</td>
+      </tr>
+  </tbody>
+</table>
+
+
+</div>
+
