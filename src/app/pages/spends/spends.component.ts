@@ -1,8 +1,9 @@
+import { PaymentsComponent } from './payments/payments.component';
 import { SpendsService } from './../../services/spends.service';
 import { Spend } from './../../models/spend';
 import { usersService } from './../../services/users.service';
 import { User } from './../../models/user';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -16,6 +17,8 @@ export class SpendsComponent implements OnInit {
   user :User = new User();
   spend: Spend =new Spend();
   spends:Spend[];
+
+  @ViewChild(PaymentsComponent) payment : PaymentsComponent;
 
   newUser: boolean = false;
   newSpend : boolean = false;
@@ -82,6 +85,7 @@ export class SpendsComponent implements OnInit {
     );
     this.newSpend=false;
     this.spend =new Spend();
+    this.payment.solveDebt();
   }
 
   btnNewUser(){

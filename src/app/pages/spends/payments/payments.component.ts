@@ -24,6 +24,9 @@ export class PaymentsComponent implements OnInit {
 
   solveDebt(){
     this.newUser= structuredClone(this.users);
+    this.usersInDebt=[];
+    this.usersWithoutDebt=[];
+    this.payments=[];
 
     this.newUser.forEach(user1 => {
       if(user1.debt<0){
