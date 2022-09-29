@@ -25,7 +25,7 @@ import { MinusPipe } from './pipes/minus.pipe';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    CommonModule
+    CommonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

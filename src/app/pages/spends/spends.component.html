@@ -116,8 +116,7 @@
     <div class="form-group my-2">
       <label for="date">Date</label>
       <br>
-      <input #dateField="ngModel" required type="date" [(ngModel)]="spend.date" name="date"
-      min="2022-08-06" max="2023-12-31">
+      <input #dateField="ngModel" required type="date" [(ngModel)]="spend.date" name="date" min="2022-01-01" max={{today}}>
       <div class="invalid" *ngIf="dateField.invalid && dateField.touched">
           <div *ngIf="dateField.errors?.['required']">
               Date is required

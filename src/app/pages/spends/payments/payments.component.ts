@@ -48,7 +48,9 @@ export class PaymentsComponent implements OnInit {
         });
       }
     });
+
   }
+
 
   showPaymentsFunction(){
       if(this.showPayments==false){

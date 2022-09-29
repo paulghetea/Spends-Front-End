@@ -3,7 +3,7 @@ import { SpendsService } from './../../services/spends.service';
 import { Spend } from './../../models/spend';
 import { usersService } from './../../services/users.service';
 import { User } from './../../models/user';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, PipeTransform } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -17,6 +17,7 @@ export class SpendsComponent implements OnInit {
   user :User = new User();
   spend: Spend =new Spend();
   spends:Spend[];
+  today = new Date().toJSON().split('T')[0];
 
   @ViewChild(PaymentsComponent) payment : PaymentsComponent;
 
@@ -85,7 +86,6 @@ export class SpendsComponent implements OnInit {
     );
     this.newSpend=false;
     this.spend =new Spend();
-    this.payment.solveDebt();
   }
 
   btnNewUser(){
